@@ -10,7 +10,7 @@ def sample_func(shapefile):
     import fiona.crs
     import geopandas as gpd
 
-    zones = gpd.read_file(shapefile)
+    zones = gpd.GeoDataFrame(shapefile)
     print(zones.take(10))
 
 
@@ -23,7 +23,7 @@ if __name__=='__main__':
     taxi = sc.textFile(input_file)
     print(taxi.take(10))
 
-    neighborhoods = 'hdfs:///tmp/bdm/neighborhoods.geojson'
+    neighborhoods = sqlContext.read.json('hdfs:///tmp/bdm/neighborhoods.geojson')
     #print(neighborhoods.printSchema())
     # neighborhoods = sc.textFile('hdfs:///tmp/bdm/neighborhoods.geojson')
     # boroughs = sc.textFile('hdfs:///tmp/bdm/boroughs.geojson')
