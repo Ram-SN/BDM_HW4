@@ -13,11 +13,12 @@ from pyspark import SparkContext
 
 if __name__=='__main__':
     sc = SparkContext()
+    spark = SparkSession(sc)
     input_file = sys.argv[1]
     taxi = sc.textFile(input_file)
     print(taxi.take(10))
 
-    neighborhoods = sc.read.json('hdfs:///tmp/bdm/neighborhoods.geojson')
+    neighborhoods = spark.read.json('hdfs:///tmp/bdm/neighborhoods.geojson')
     print(neighborhoods.show())
     # neighborhoods = sc.textFile('hdfs:///tmp/bdm/neighborhoods.geojson')
     # boroughs = sc.textFile('hdfs:///tmp/bdm/boroughs.geojson')
