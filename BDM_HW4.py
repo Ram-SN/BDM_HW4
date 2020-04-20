@@ -23,7 +23,7 @@ if __name__=='__main__':
     taxi = sc.textFile(input_file)
     print(taxi.take(10))
 
-    neighborhoods = sqlContext.read.json('hdfs:///tmp/bdm/neighborhoods.geojson')
+    neighborhoods = 'hdfs:///tmp/bdm/neighborhoods.geojson'
     #print(neighborhoods.printSchema())
     # neighborhoods = sc.textFile('hdfs:///tmp/bdm/neighborhoods.geojson')
     # boroughs = sc.textFile('hdfs:///tmp/bdm/boroughs.geojson')
