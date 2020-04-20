@@ -1,6 +1,8 @@
 import sys
 import pyspark
 from pyspark import SparkContext
+from pyspark.sql.session import SparkSession
+
 
 # def sample_func(shapefile):
 #     import fiona.crs
