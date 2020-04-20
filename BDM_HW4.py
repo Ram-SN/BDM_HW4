@@ -17,7 +17,7 @@ if __name__=='__main__':
     taxi = sc.textFile(input_file)
     print(taxi.take(10))
 
-    neighborhoods = spark.read.load('hdfs:///tmp/bdm/neighborhoods.geojson')
+    neighborhoods = sc.read.load('hdfs:///tmp/bdm/neighborhoods.geojson')
     print(neighborhoods.show())
     # neighborhoods = sc.textFile('hdfs:///tmp/bdm/neighborhoods.geojson')
     # boroughs = sc.textFile('hdfs:///tmp/bdm/boroughs.geojson')
