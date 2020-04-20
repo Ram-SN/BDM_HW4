@@ -3,10 +3,8 @@ import pyspark
 from pyspark import SparkContext
 
 def sample_func(shapefile):
-
-	import fiona.crs
+    import fiona.crs
     import geopandas as gpd
-
 
     zones = gpd.read_file(shapefile).to_crs(fiona.crs.from_epsg(2263))
     print(zones.head())
