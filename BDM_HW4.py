@@ -2,6 +2,8 @@ import sys
 import pyspark
 from pyspark import SparkContext
 from pyspark.sql.session import SparkSession
+from pyspark.sql import SQLContext
+
 
 
 # def sample_func(shapefile):
