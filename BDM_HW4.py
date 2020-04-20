@@ -21,7 +21,7 @@ if __name__=='__main__':
     print(taxi.take(10))
 
     neighborhoods = spark.read.json('hdfs:///tmp/bdm/neighborhoods.geojson')
-    print(neighborhoods.show())
+    print(neighborhoods)
     # neighborhoods = sc.textFile('hdfs:///tmp/bdm/neighborhoods.geojson')
     # boroughs = sc.textFile('hdfs:///tmp/bdm/boroughs.geojson')
     # sample_func(neighborhoods)
