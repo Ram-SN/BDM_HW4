@@ -10,7 +10,7 @@ def sample_func(shapefile):
     import fiona.crs
     import geopandas as gpd
 
-    zones = gpd.GeoDataFrame(shapefile)
+    zones = gpd.read_file(shapefile)
     print(zones.take(10))
 
 
