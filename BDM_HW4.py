@@ -20,6 +20,8 @@ from pyspark.sql import SQLContext
 
 
 if __name__=='__main__':
+	import fiona.crs
+    import geopandas as gpd
     sc = SparkContext()
     sqlContext = SQLContext(sc)
     spark = SparkSession(sc)
