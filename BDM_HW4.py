@@ -10,7 +10,6 @@ def sample_func():
     import fiona.crs
     import geopandas as gpd
     
-    sc.addPyFile("neighborhoods.geojson")
     in_file = 'neighborhoods.geojson'
     zones = gpd.read_file(in_file).to_crs(fiona.crs.from_epsg(2263))
     print(zones.head())
