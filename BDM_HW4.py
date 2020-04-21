@@ -31,7 +31,7 @@ if __name__=='__main__':
     taxi = sc.textFile(input_file)
     # print(list(enumerate(taxi.first().split(','))))
 
-    in_file = 'neighborhoods.geojson'
+    in_file = 'hdfs:///tmp/bdm/neighborhoods.geojson'
     zones = gpd.read_file(in_file).to_crs(fiona.crs.from_epsg(2263))
     print(zones)
     # neighborhoods = sqlContext.read.json('hdfs:///tmp/bdm/neighborhoods.geojson')
