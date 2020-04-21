@@ -20,9 +20,6 @@ def sample_func():
 
 if __name__=='__main__':
     sc = SparkContext()
-    sqlContext = SQLContext(sc)
-    spark = SparkSession(sc)
-
     input_file = sys.argv[1]
 
     taxi = sc.textFile(input_file)
