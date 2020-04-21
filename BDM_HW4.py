@@ -10,8 +10,10 @@ def sample_func(in_file):
     import fiona.crs
     import geopandas as gpd
     
-    read_json_file = sqlContext.read.json(in_file)
-    print(read_json_file.printSchema())
+    #read_json_file = sqlContext.read.json(in_file)
+    zones = gpd.read_file(in_file).to_crs(fiona.crs.from_epsg(2263))
+    print(zones)
+    #print(read_json_file.printSchema())
     # zones = gpd.read_file(shapefile)
     # print(zones.take(10))
 
