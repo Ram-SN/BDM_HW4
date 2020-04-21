@@ -29,4 +29,6 @@ if __name__=='__main__':
 
     counts = taxi.mapPartitionsWithIndex(sample_func) \
         .collect()
+
+    prints(counts)
     
