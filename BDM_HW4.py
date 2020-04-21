@@ -6,13 +6,13 @@ from pyspark.sql import SQLContext
 
 
 
-def sample_func():
+def sample_func(pid, records):
     import fiona.crs
     import geopandas as gpd
     
     in_file = 'neighborhoods.geojson'
     zones = gpd.read_file(in_file).to_crs(fiona.crs.from_epsg(2263))
-    return(zones)
+    return(zones.head())
 
     # in_file = 'boroughs.geojson'
     # zones = gpd.read_file(in_file).to_crs(fiona.crs.from_epsg(2263))
@@ -27,8 +27,8 @@ if __name__=='__main__':
     
     #sample_func()
 
-    counts = sample_func().collect()
-        
+    counts = taxi.mapPartitionsWithIndex(sample_func) \
+        .collect()
 
     print(counts)
     
