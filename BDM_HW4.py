@@ -6,7 +6,7 @@ from pyspark.sql import SQLContext
 
 
 
-def sample_func(pid, records):
+def sample_func():
     import fiona.crs
     import geopandas as gpd
     
