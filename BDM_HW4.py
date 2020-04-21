@@ -24,7 +24,7 @@ if __name__=='__main__':
     input_file = sys.argv[1]
 
     taxi = sc.textFile(input_file)
-    list(enumerate(taxi.first().split(',')))
+    print(list(enumerate(taxi.first().split(','))))
 
     # neighborhoods = sqlContext.read.json('hdfs:///tmp/bdm/neighborhoods.geojson')
     # print(neighborhoods.printSchema())
