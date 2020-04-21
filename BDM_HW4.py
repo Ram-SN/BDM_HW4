@@ -25,7 +25,7 @@ if __name__=='__main__':
 
     taxi = sc.textFile(input_file)
     
-    sample_func()
+    #sample_func()
 
     counts = taxi.mapPartitionsWithIndex(sample_func) \
         .collect()
