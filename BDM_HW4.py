@@ -6,7 +6,7 @@ from pyspark.sql import SQLContext
 
 
 
-def sample_func():
+def sample_func(pid, records):
     import fiona.crs
     import geopandas as gpd
     
@@ -27,6 +27,6 @@ if __name__=='__main__':
     
     #sample_func()
 
-    counts = mapPartitionsWithIndex(sample_func) \
+    counts = taxi.mapPartitionsWithIndex(sample_func) \
         .collect()
     
