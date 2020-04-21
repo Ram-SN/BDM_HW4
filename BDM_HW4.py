@@ -12,7 +12,7 @@ def sample_func(pid, records):
     
     in_file = 'neighborhoods.geojson'
     zones = gpd.read_file(in_file).to_crs(fiona.crs.from_epsg(2263))
-    return(zones.head())
+    return(zones)
 
     # in_file = 'boroughs.geojson'
     # zones = gpd.read_file(in_file).to_crs(fiona.crs.from_epsg(2263))
