@@ -6,13 +6,14 @@ from pyspark.sql import SQLContext
 
 
 
-def sample_func(shapefile):
+def sample_func(in_file):
     import fiona.crs
     import geopandas as gpd
-
-    zones = gpd.read_file(shapefile)
-    print(zones.take(10))
-
+    
+    read_json_file = sqlContext.read.json(in_file)
+    print(read_json_file.printSchema())
+    # zones = gpd.read_file(shapefile)
+    # print(zones.take(10))
 
 
 if __name__=='__main__':
@@ -23,13 +24,17 @@ if __name__=='__main__':
     input_file = sys.argv[1]
 
     taxi = sc.textFile(input_file)
-    print(taxi.take(10))
+    list(enumerate(taxi.first().split(',')))
 
     # neighborhoods = sqlContext.read.json('hdfs:///tmp/bdm/neighborhoods.geojson')
-    #print(neighborhoods.printSchema())
+    # print(neighborhoods.printSchema())
+    # boroughs = sqlContext.read.json('hdfs:///tmp/bdm/boroughs.geojson')
+
+
     # neighborhoods = sc.textFile('hdfs:///tmp/bdm/neighborhoods.geojson')
-    # boroughs = sc.textFile('hdfs:///tmp/bdm/boroughs.geojson')
-    sample_func('neighborhoods.geojson')
+    
+    sample_func('hdfs:///tmp/bdm/neighborhoods.geojson')
+    sample_func('hdfs:///tmp/bdm/boroughs.geojson')
     # sample_func(boroughs)
 
 
