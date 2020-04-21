@@ -11,9 +11,9 @@ def sample_func():
     import geopandas as gpd
     
     # read_json_file = sqlContext.read.json(in_file)
-    in_file = 'hdfs:/tmp/bdm/neighborhoods.geojson'
+    in_file = '/tmp/bdm/neighborhoods.geojson'
     zones = gpd.read_file(in_file).to_crs(fiona.crs.from_epsg(2263))
-    print(zones)
+    print(zones.head())
     # print(read_json_file.printSchema())
     # zones = gpd.read_file(shapefile)
     # print(zones.take(10))
