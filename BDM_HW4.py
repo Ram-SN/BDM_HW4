@@ -67,14 +67,9 @@ def processTrips(pid, records):
 
 
 if __name__=='__main__':
-    import rtree
-    import fiona.crs
-    import pyproj
 
     sc = SparkContext()
-    input_file = sys.argv[1]
-
-    proj = pyproj.Proj(init="epsg:2263", preserve_units=True)    
+    input_file = sys.argv[1] 
 
     taxi = sc.textFile(input_file)
 
