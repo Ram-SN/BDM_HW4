@@ -67,6 +67,8 @@ def processTrips(pid, records):
 
 
 if __name__=='__main__':
+	import rtree
+    import fiona.crs
     sc = SparkContext()
     input_file = sys.argv[1]
 
