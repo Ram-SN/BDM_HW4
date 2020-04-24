@@ -70,6 +70,8 @@ if __name__=='__main__':
     sc = SparkContext()
     input_file = sys.argv[1]
 
+    proj = pyproj.Proj(init="epsg:2263", preserve_units=True)    
+
     taxi = sc.textFile(input_file)
 
     counts = taxi.mapPartitionsWithIndex(processTrips) \
