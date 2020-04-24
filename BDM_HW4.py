@@ -68,7 +68,7 @@ def processTrips(pid, records):
 
 if __name__=='__main__':
 
-    sc = SparkContext()
+    sc = SparkContext.getOrCreate()
     input_file = sys.argv[1] 
 
     taxi = sc.textFile(input_file)
