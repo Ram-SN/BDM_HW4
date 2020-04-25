@@ -57,7 +57,7 @@ def processTrips(pid, records):
     
     for row in reader:
 
-        p = geom.Point(proj(double(row[9]), double(row[10])))
+        p = geom.Point(proj(float(row[7]), float(row[8])))
         
         # Look up a matching zone, and update the count accordly if
         # such a match is found
