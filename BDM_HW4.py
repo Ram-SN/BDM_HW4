@@ -18,6 +18,7 @@ def createIndex(shapefile):
     import geopandas as gpd
     zones = gpd.read_file(shapefile).to_crs(fiona.crs.from_epsg(2263))
     index = rtree.Rtree()
+
     for idx,geometry in enumerate(zones.geometry):
         index.insert(idx, geometry.bounds)
     return (index, zones)
@@ -56,7 +57,7 @@ def processTrips(pid, records):
     
     for row in reader:
 
-        p = geom.Point(proj(float(row[9]), float(row[10])))
+        p = geom.Point(proj(double(row[9]), double(row[10])))
         
         # Look up a matching zone, and update the count accordly if
         # such a match is found
