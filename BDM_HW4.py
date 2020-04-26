@@ -18,10 +18,23 @@ def createIndex(shapefile):
     import geopandas as gpd
     zones = gpd.read_file(shapefile).to_crs(fiona.crs.from_epsg(2263))
     index = rtree.Rtree()
-
     for idx,geometry in enumerate(zones.geometry):
         index.insert(idx, geometry.bounds)
     return (index, zones)
+
+
+def findBorough(p, index, zones):
+    '''
+    findZone returned the ID of the shape (stored in 'zones' with
+    'index') that contains the given point 'p'. If there's no match,
+    None will be returned.
+    '''
+    match = index.intersection((p.x, p.y, p.x, p.y))
+    for idx in match:
+        if zones.geometry[idx].contains(p):
+            return zones.borough[idx]
+    return None
+
 
 def findZone(p, index, zones):
     '''
@@ -32,8 +45,9 @@ def findZone(p, index, zones):
     match = index.intersection((p.x, p.y, p.x, p.y))
     for idx in match:
         if zones.geometry[idx].contains(p):
-            return idx
+            return zones.neighborhood[idx]
     return None
+    
 
 def processTrips(pid, records):
     '''
@@ -56,14 +70,24 @@ def processTrips(pid, records):
     counts = {}
     
     for row in reader:
+        try:
 
-        p = geom.Point(proj(float(row[9]), float(row[10])))
+            orig = geom.Point(proj(float(row[6]), float(row[7])))
+            dest = geom.Point(proj(float(row[10]), float(row[11])))
+
+            # Look up a matching zone, and update the count accordly if
+            # such a match is found
+            zone = findZone(dest, index, zones)
+            borough = findBorough(orig, index, zones)
+
+
+            if borough and zone:
+                counts[borough, zone] = counts.get((borough, zone), 0) + 1
         
-        # Look up a matching zone, and update the count accordly if
-        # such a match is found
-        zone = findZone(p, index, zones)
-        if zone:
-            counts[zone] = counts.get(zone, 0) + 1
+        
+        except(ValueError, IndexError):
+            pass
+            
     return counts.items()
 
 
@@ -78,9 +102,13 @@ if __name__=='__main__':
             .reduceByKey(lambda x,y: x+y) \
             .collect()
 
-    countsPerNeighborhood = list(map(lambda x: (zones['neighborhood'][x[0]],zones['borough'][x[0]], x[1]), counts))
-    df = pd.DataFrame(countsPerNeighborhood)
-    
-    testing=df.sort_values([1,2], ascending=[True,False]).groupby(1).head(5)
+    rdd = sc.parallelize(counts)
 
-    print((testing))
+    rdd.map(lambda x: (x[0][0],((x[0][1], x[1]))))\
+        .sortBy(lambda x: x[1][1], ascending=False)\
+        .groupByKey()\
+        .sortByKey()\
+        .mapValues(list)\
+        .map(lambda x: (x[0], x[1][0:3]))\
+        .map(lambda x:((x[0] + "," + x[1][0][0] + "," + str(x[1][0][1]) + "," + x[1][1][0] + "," + str(x[1][1][1]) + "," + x[1][2][0] + "," + str(x[1][2][1]))))\
+        .collect()
