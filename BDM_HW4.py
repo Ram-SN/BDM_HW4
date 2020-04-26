@@ -111,7 +111,6 @@ if __name__=='__main__':
         .sortByKey()\
         .mapValues(list)\
         .map(lambda x: (x[0], x[1][0:3]))\
-        .map(lambda x:((x[0] + "," + x[1][0][0] + "," + str(x[1][0][1]) + "," + x[1][1][0] + "," + str(x[1][1][1]) + "," + x[1][2][0] + "," + str(x[1][2][1]))))\
-        .collect()
+        .map(lambda x:((x[0] + "," + x[1][0][0] + "," + str(x[1][0][1]) + "," + x[1][1][0] + "," + str(x[1][1][1]) + "," + x[1][2][0] + "," + str(x[1][2][1]))))
 
-    solution.write.csv(output_file)
+    solution.saveAsTextFile(output_file)
