@@ -95,7 +95,7 @@ if __name__=='__main__':
 
     sc = SparkContext.getOrCreate()
     input_file = sys.argv[1] 
-    #output_file = sys.argv[2]
+    output_file = sys.argv[2]
 
     taxi = sc.textFile(input_file)
 
@@ -113,6 +113,4 @@ if __name__=='__main__':
         .map(lambda x: (x[0], x[1][0:3]))\
         .map(lambda x:((x[0] + "," + x[1][0][0] + "," + str(x[1][0][1]) + "," + x[1][1][0] + "," + str(x[1][1][1]) + "," + x[1][2][0] + "," + str(x[1][2][1]))))
 
-    #solution.saveAsTextFile(output_file)
-
-    print(solution)
+    solution.saveAsTextFile(output_file)
