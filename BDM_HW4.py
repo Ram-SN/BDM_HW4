@@ -105,13 +105,23 @@ if __name__=='__main__':
 
     rdd = sc.parallelize(counts)
 
-    solution = rdd.map(lambda x: (x[0][0],((x[0][1], x[1]))))\
-        .sortBy(lambda x: x[1][1], ascending=False)\
-        .groupByKey()\
-        .sortByKey()\
-        .mapValues(list)\
-        .reduceByKey(lambda x,y: x+y) \
-        .map(lambda x: (x[0], x[1][0:3]))\
-        .map(lambda x:((x[0] + "," + x[1][0][0] + "," + str(x[1][0][1]) + "," + x[1][1][0] + "," + str(x[1][1][1]) + "," + x[1][2][0] + "," + str(x[1][2][1]))))
+    # solution = rdd.map(lambda x: (x[0][0],((x[0][1], x[1]))))\
+    #     .sortBy(lambda x: x[1][1], ascending=False)\
+    #     .groupByKey()\
+    #     .mapValues(list)\
+    #     .reduceByKey(lambda x,y: x+y) \
+    #     .sortByKey()\
+    #     .map(lambda x: (x[0], x[1][0:3]))\
+    #     .map(lambda x:((x[0] + "," + x[1][0][0] + "," + str(x[1][0][1]) + "," + x[1][1][0] + "," + str(x[1][1][1]) + "," + x[1][2][0] + "," + str(x[1][2][1]))))
+
+    
+
+    solution = rdd.map(lambda x:((x[0][0]),(x[1],x[0][1])))\
+            .groupByKey()\
+            .sortByKey()\
+            .map(lambda x:((x[0]), sorted(x[1],reverse=True)[:3]))\
+            .map(lambda x:((x[0]), x[1][0][1],x[1][0][0],x[1][1][1],x[1][1][0], x[1][2][1],x[1][2][0]))
+
+
 
     solution.saveAsTextFile(output_file)
