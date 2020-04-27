@@ -110,6 +110,7 @@ if __name__=='__main__':
         .groupByKey()\
         .sortByKey()\
         .mapValues(list)\
+        .reduceByKey(lambda x,y: x+y) \
         .map(lambda x: (x[0], x[1][0:3]))\
         .map(lambda x:((x[0] + "," + x[1][0][0] + "," + str(x[1][0][1]) + "," + x[1][1][0] + "," + str(x[1][1][1]) + "," + x[1][2][0] + "," + str(x[1][2][1]))))
 
